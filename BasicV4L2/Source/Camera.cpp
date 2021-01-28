@@ -23,6 +23,7 @@
 
 =============================================================================*/
 
+#include "libcsi_ioctl.h"
 #include "Camera.h"
 #include <sys/ioctl.h>
 #include <unistd.h>
@@ -639,6 +640,16 @@ void Camera::InitDevice(IOMethod eIOMethod, uint32_t nBufferCount, const std::se
                 {
                     throw CreateException("Could not query buffer");
                 }
+
+                // workaround: Disable trigger mode
+                if( ioctl( m_nFileDescriptor, VIDIOC_TRIGGER_MODE_OFF ) == -1 )
+                {
+                    throw CreateException("Disable trigger mode");
+                }
+                else{
+                    printf("Disable trigger mode Done!\n");
+
+                } 
                 
                 QSharedPointer<Buffer> pBuffer(new Buffer(  &buf,
                                                             m_nFileDescriptor,
