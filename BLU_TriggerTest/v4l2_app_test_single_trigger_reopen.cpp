@@ -425,7 +425,7 @@ int main(int argc, char **argv) {
 
   // joe: test reopen /dev/video0 again.
   printf("\n\n\n---------- 2nd reopen again -----------\n");
-  usleep(5 * 1000 * 1000);
+  usleep(1 * 1000 * 1000);
 
   fd = open(dev_name, O_RDWR | O_NONBLOCK, 0);
   if (-1 == fd) {
@@ -434,7 +434,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  usleep(5 * 1000 * 1000);
+  usleep(1 * 1000 * 1000);
 
   /* close device */
   if (-1 == close(fd))
