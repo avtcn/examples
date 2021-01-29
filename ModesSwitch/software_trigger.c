@@ -166,6 +166,9 @@ int main( int const argc, char const **argv )
     }
     cameraFd = -1;
 
+    for( unsigned bufIdx = 0; bufIdx < reqBufs.count; ++bufIdx )
+    	munmap(pBuffers[bufIdx], buflen);
+
     // -------------------------- 2nd -------------------------------- //
 
     usleep(5* 1000 * 1000);
