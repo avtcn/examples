@@ -145,17 +145,18 @@ int main( int const argc, char const **argv )
     // For simplicity of the example, we let the system implicitly munmap
     // buffers and close files at exit
     
-    // Set trigger mode
-    if( ioctl( cameraFd, VIDIOC_TRIGGER_MODE_OFF ) == -1 )
-    {
-        exitError( "disable trigger mode " );
-    }
 
     // Stop stream
     // int const type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
     if( ioctl( cameraFd, VIDIOC_STREAMOFF, &type ) == -1 )
     {
         exitError( "VIDIOC_STREAMOFF" );
+    }
+
+    // Set trigger mode off
+    if( ioctl( cameraFd, VIDIOC_TRIGGER_MODE_OFF ) == -1 )
+    {
+        exitError( "disable trigger mode " );
     }
 
     // Close device
@@ -172,7 +173,7 @@ int main( int const argc, char const **argv )
     cameraFd = open( devName, O_RDWR, 0 );
     if( cameraFd == -1 )
     {
-        exitError( "failed to open camera" );
+        exitError( "failed to open camera 2nd." );
     }
 
     usleep(5* 1000 * 1000);
