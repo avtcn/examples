@@ -403,13 +403,6 @@ int main(int argc, char **argv) {
     }
   }
 
-  printf("stop capture\n");
-  /* stop capture */
-  type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-  if (-1 == xioctl(fd, VIDIOC_STREAMOFF, &type))
-    errno_exit("VIDIOC_STREAMOFF");
-
-
   // workaround: Disable trigger mode
   if( ioctl( fd, VIDIOC_TRIGGER_MODE_OFF ) == -1 )
   {
@@ -418,6 +411,14 @@ int main(int argc, char **argv) {
   else{
     printf("Disable trigger mode Done!\n"); 
   } 
+
+  printf("stop capture\n");
+  /* stop capture */
+  type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+  if (-1 == xioctl(fd, VIDIOC_STREAMOFF, &type))
+    errno_exit("VIDIOC_STREAMOFF");
+
+
 
   printf("unmap buffers\n");
   /* unmap and free buffers */
