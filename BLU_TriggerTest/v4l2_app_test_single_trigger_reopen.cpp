@@ -409,6 +409,16 @@ int main(int argc, char **argv) {
   if (-1 == xioctl(fd, VIDIOC_STREAMOFF, &type))
     errno_exit("VIDIOC_STREAMOFF");
 
+
+  // workaround: Disable trigger mode
+  if( ioctl( fd, VIDIOC_TRIGGER_MODE_OFF ) == -1 )
+  {
+    errno_exit("VIDIOC_TRIGGER_MODE_OFF");
+  }
+  else{
+    printf("Disable trigger mode Done!\n"); 
+  } 
+
   printf("unmap buffers\n");
   /* unmap and free buffers */
   for (i = 0; i < n_buffers; ++i)
